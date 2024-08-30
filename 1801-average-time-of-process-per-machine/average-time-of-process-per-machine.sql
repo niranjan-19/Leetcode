@@ -1,5 +1,7 @@
-# Write your MySQL query statement below
-Select a.machine_id , round(
-    (select avg(a1.timestamp)FROM Activity a1 Where activity_type='end' and a1.machine_id=a.machine_id ) 
-    -
-    (select avg(a1.timestamp)FROM Activity a1 Where activity_type='start' and a1.machine_id=a.machine_id), 3) as processing_time  From Activity a Group by a.machine_id
+SELECT a1.machine_id, ROUND(AVG(a2.timestamp - a1.timestamp),3) as processing_time
+FROM Activity a1
+inner join Activity a2
+on a1.process_id = a2.process_id
+and a1.machine_id = a2.machine_id
+and a1.timestamp < a2.timestamp
+GROUP BY machine_id
