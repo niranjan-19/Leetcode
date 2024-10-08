@@ -20,6 +20,7 @@ class Solution {
 
             }
             right--;
+            //condition for edge case -- if matrix has one roe only 
             if (top <= bottom) {
                 for (int i = right; i >= left; i--) {
                     list.add(matrix[bottom][i]);
@@ -27,6 +28,7 @@ class Solution {
                 }
                 bottom--;
             }
+            //if matrix has no top and left has still elements -- 
             if (left <= right) {
                 for (int i = bottom; i >= top; i--) {
                     list.add(matrix[i][left]);
