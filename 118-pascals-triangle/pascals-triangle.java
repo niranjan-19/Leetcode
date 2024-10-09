@@ -1,24 +1,22 @@
 class Solution {
 
-    public static int nCr(int n, int r) {
-        long res = 1;
-        // calculating nCr:
-        for (int i = 0; i < r; i++) {
-            res = res * (n - i);
-            res = res / (i + 1);
+    public static List<Integer> generateRow(int row) {
+        List<Integer> ansRow = new ArrayList<>();
+        int ans = 1;
+        ansRow.add(1);
+        for (int col = 1; col < row; col++) {
+            ans = ans * (row - col);
+            ans = ans / col;
+            ansRow.add(ans);
         }
-        return (int) res;
+        return ansRow;
     }
 
     public List<List<Integer>> generate(int numRows) {
         List<List<Integer>> ans = new ArrayList<>();
-        // Store the entire Pascal's triangle:
-        for (int row = 1; row <= numRows; row++) {
-            List<Integer> tempLst = new ArrayList<>(); // temporary list
-            for (int col = 1; col <= row; col++) {
-                tempLst.add(nCr(row - 1, col - 1));
-            }
-            ans.add(tempLst);
+
+        for (int i = 1; i <= numRows; i++) {
+            ans.add(generateRow(i));
         }
         return ans;
     }
