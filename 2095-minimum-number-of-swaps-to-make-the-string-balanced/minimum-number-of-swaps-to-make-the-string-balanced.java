@@ -10,6 +10,6 @@ class Solution {
             else if(size > 0)
             size --;
         }
-        return (size+1)/2 ;
+        return ((size/2)+(size%2)) ;
     }
 }
