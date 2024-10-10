@@ -1,51 +1,40 @@
 class Solution {
     public List<Integer> majorityElement(int[] nums) {
-        int n = nums.length;
-        int cnt1 = 0;
-        int cnt2 = 0;
-        int ele1 = Integer.MIN_VALUE;
+        List<Integer> ans = new ArrayList<>();
+        int can1 = 0;
+        int candidate2 = 1;
+        int countSoFar1 = 0;
+        int countSoFar2 = 0;
 
-        int ele2 = Integer.MIN_VALUE;
-
-        int mini = (int) (n / 3);
-
-        List<Integer> list = new ArrayList<>();
-
-        for (int i = 0; i < n; i++) {
-            if (cnt1 == 0 && nums[i] != ele2) {
-                cnt1 = 1;
-                ele1 = nums[i];
-
-            } else if (cnt2 == 0 && nums[i] != ele1) {
-                cnt2 = 1;
-                ele2 = nums[i];
-
-            } else if (nums[i] == ele1) {
-                cnt1++;
-            } else if (nums[i] == ele2) {
-                cnt2++;
+        for (int num : nums)
+            if (num == can1) {
+                ++countSoFar1;
+            } else if (num == candidate2) {
+                ++countSoFar2;
+            } else if (countSoFar1 == 0) {
+                can1 = num;
+                ++countSoFar1;
+            } else if (countSoFar2 == 0) {
+                candidate2 = num;
+                ++countSoFar2;
+            } else {
+                --countSoFar1;
+                --countSoFar2;
             }
 
-            else {
-                cnt1--;
-                cnt2--;
-            }
+        int count1 = 0;
+        int count2 = 0;
 
-        }
+        for (final int num : nums)
+            if (num == can1)
+                ++count1;
+            else if (num == candidate2)
+                ++count2;
 
-        cnt1 = 0;
-        cnt2 = 0;
-        for (int i = 0; i < nums.length; i++) {
-            if (ele1 == nums[i]) {
-                cnt1++;
-            } else if (ele2 == nums[i]) {
-                cnt2++;
-            }
-        }
-        if (cnt1 > mini)
-            list.add(ele1);
-        if (cnt2 > mini)
-            list.add(ele2);
-        return list;
+        if (count1 > nums.length / 3)
+            ans.add(can1);
+        if (count2 > nums.length / 3)
+            ans.add(candidate2);
+        return ans;
     }
 }
