@@ -4,7 +4,7 @@ class Solution {
         int left = 0;
         int right = s.length() - 1;
 
-        while (right > left) {
+        while (left < right) {
             char l = s.charAt(left);
             char r = s.charAt(right);
 
@@ -12,16 +12,15 @@ class Solution {
                 left++;
             else if (!Character.isLetterOrDigit(r))
                 right--;
-            else if (Character.toLowerCase(l) != Character.toLowerCase(r))
+            else if (Character.toLowerCase(l) != Character.toLowerCase(r)) {
                 return false;
-            else {
+            }
+            else{
                 left++;
                 right--;
-
             }
 
         }
-
         return true;
 
     }
