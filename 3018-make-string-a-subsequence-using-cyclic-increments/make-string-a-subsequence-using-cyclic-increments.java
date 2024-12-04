@@ -1,18 +1,30 @@
 class Solution {
     public boolean canMakeSubsequence(String str1, String str2) {
-        int i = 0, j = 0; 
+        int n1 = str1.length();
+        int n2 = str2.length();
+        int ptr1 = 0;
+        int ptr2 = 0;
+        while (ptr1 < n1 && ptr2 < n2) {
+            char sch = str1.charAt(ptr1);
+            char tch = str2.charAt(ptr2);
+            if (sch != tch) {
+                if (sch + 1 == tch || sch - 25 == tch) {
+                    ptr1++;
+                    ptr2++;
+                } else {
+                    ptr1++;
+                }
+            }
 
-        while (i < str1.length() && j < str2.length()) {
-            if (str1.charAt(i) - 'a' == str2.charAt(j) - 'a'
-                    || (str1.charAt(i) - 'a' + 1) % 26 == str2.charAt(j) - 'a') {
-                j++;
+            else {
+                ptr1++;
+                ptr2++;
             }
-            if (j == str2.length()) {
-                return true;
-            }
-            i++;
+
+            if (ptr1 == n1 && ptr2 != n2)
+                return false;
+
         }
-
-        return false;
+        return true;
     }
 }
