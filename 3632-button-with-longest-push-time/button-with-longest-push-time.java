@@ -1,17 +1,18 @@
 class Solution {
     public int buttonWithLongestTime(int[][] events) {
-        int n = events.length;
-        int maxi = Integer.MIN_VALUE;
-        int ans = -1;
+        var index = events[0][0];
+        var maxTime = events[0][1];
 
-        for (int i = 0; i < n; i++) {
-            int temp = (i == 0) ? events[i][1] : (events[i][1] - events[i - 1][1]);
-            if (temp > maxi || (temp == maxi && events[i][0] < ans)) {
-                maxi = temp;
-                ans = events[i][0];
+        for (var i = 1; i < events.length; i++) {
+            var diff = events[i][1] - events[i - 1][1];
+
+            if (diff == maxTime)
+                index = Math.min(events[i][0], index);
+            else if (diff > maxTime) {
+                index = events[i][0];
+                maxTime = events[i][1] - events[i - 1][1];
             }
         }
-
-        return ans;
+        return index;
     }
 }
